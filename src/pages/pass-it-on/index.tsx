@@ -6,9 +6,15 @@ import Button from '@atoms/button';
 import { useRouter } from 'next/router';
 import { FiChevronRight } from 'react-icons/fi';
 import { Flag } from '@assets/svg';
+import { useForm } from 'react-hook-form';
+import { SearchForm } from 'src/types/forms';
+import UserSearchForm from '@organisms/user-search-form';
+import FormFrame from '@hoc/form';
 
 const Loading: NextPage = () => {
     const router = useRouter();
+
+    const { register } = useForm<SearchForm>()
 
     return (
         <Layout>
@@ -25,12 +31,23 @@ const Loading: NextPage = () => {
                         </div>
                     </div>
 
-                    <h3 className="text-[17.5px] mt-24 font-[800] leading-9 text-center">Thanks for your time!</h3>
+                    <h3 className="text-[17.5px] mt-8 font-[800] leading-9 text-center">Pass it on?</h3>
+                    <p className="text-center text-sm max-w-[260px] text-[#006E72] mx-auto font-normal">Nominate someone else to take this incentivized survey.</p>
+
+                    {/* Search Input */}
+                    <div className='px-[25px] mt-9'>
+                        <div className="border-b-[2.5px] border-[#007575]">
+                            <FormFrame className='w-full'>
+                                <UserSearchForm register={register} />
+                            </FormFrame>
+                        </div>
+                    </div>
+
 
                     {/* Continue Button */}
                     <div className='px-[25px] w-full mt-auto mb-6'>
-                        <Button onClick={() => router.push('/pass-it-on')} className='relative font-semibold bg-primary text-white w-full rounded h-[45px]'>
-                            Continue
+                        <Button onClick={() => router.push('/loading')} className='relative font-semibold bg-[#C6F6F2] text-[#00D0BE] w-full rounded h-[45px] border-[1px] border-[#82ECD3]'>
+                            Skip
                             <FiChevronRight className=' text-xl absolute top-1/2 right-7 transform -translate-y-1/2' />
                         </Button>
                     </div>
