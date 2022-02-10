@@ -37,7 +37,7 @@ const Home: NextPage = () => {
             </div>
           </div>
 
-          <div className='px-[25px] flex mt-[30px]'>
+          <div className='px-[25px] flex mt-[30px] text-[15.5px]'>
             <p className="font-[800] text-[#006E72]">13.</p>
             <p className='font-[800] ml-2 leading-6'>Add an attachment that reflects and portrays similar features and characteristics with the image shown below. </p>
           </div>
