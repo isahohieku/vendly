@@ -1,0 +1,50 @@
+@import "~tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer utilities {
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+}
+
+@font-face {
+    font-family: Axiforma;
+    font-weight: 500;
+    src: url(../assets/fonts/Axiforma/Axiforma-Regular.ttf) format("opentype");
+}
+@font-face {
+    font-family: Axiforma;
+    font-weight: bold;
+    src: url(../assets/fonts/Axiforma/Axiforma-Bold.ttf) format("opentype");
+}
+@font-face {
+    font-family: Axiforma;
+    font-weight: bolder;
+    src: url(../assets/fonts/Axiforma/Axiforma-ExtraBold.ttf) format("opentype");
+}
+@font-face {
+    font-family: Axiforma;
+    font-weight: lighter;
+    src: url(../assets/fonts/Axiforma/Axiforma-Light.ttf) format("opentype");
+}
+@font-face {
+    font-family: Axiforma;
+    font-weight: lighter;
+    src: url(../assets/fonts/Axiforma/Axiforma-Thin.ttf) format("opentype");
+}
+
+.wrapper {
+    background-image: url(../assets/img/jpg/bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
