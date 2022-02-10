@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import { FaEllipsisH } from "react-icons/fa";
 import Lottie, { Options } from 'react-lottie';
 import Layout from '@templates/layout';
 import StepperFrame from '@hoc/stepper-frame';

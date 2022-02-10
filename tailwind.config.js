@@ -36,6 +36,7 @@ module.exports = {
           '800': '#000000',
           '900': '#000000'
         },
+        scroll: '#17E7B3'
       },
       boxShadow: {
         '4xl': '3px 5px 39px -3px rgba(226, 226, 226, 0.59)',
@@ -77,6 +78,11 @@ module.exports = {
     },
 
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
+  variants: {
+    scrollbar: ['rounded']
+}
 };
 
