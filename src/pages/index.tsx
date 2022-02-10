@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
-import { FaChevronRight, FaPlusCircle, FaTimesCircle } from "react-icons/fa";
-import { FiChevronRight, FiPlusCircle, FiX } from "react-icons/fi";
+import { FaChevronRight } from "react-icons/fa";
+import { FiChevronRight, FiPlusCircle } from "react-icons/fi";
 import Layout from '@templates/layout';
 import StepperFrame from '@hoc/stepper-frame';
 import Indicators from '@molecules/indicators';
 import VLink from '@atoms/link';
-import Image from 'next/image';
+import { useRouter } from 'next/router';
 import Button from '@atoms/button';
 import AttachmentCard from '@molecules/attachment-card';
 
@@ -18,15 +18,16 @@ const attachments = [
 ];
 
 const Home: NextPage = () => {
+  const router = useRouter();
   return (
     <Layout>
       <main className="px-5">
         <StepperFrame>
-          <div className="flex justify-end pt-[8px] pr-4">
+          <div className="flex justify-end absolute right-4 top-2">
             <Indicators active={1} indicators={Array(4).fill({ active: false })} />
           </div>
 
-          <div className="px-[25px] mt-[24px]">
+          <div className="px-[25px] mt-8">
             <div className="flex justify-between items-center">
               <h1 className="text-[22px] font-[800] leading-9">Survey</h1>
 
@@ -59,7 +60,7 @@ const Home: NextPage = () => {
 
           {/* Finish Button */}
           <div className='px-[25px] w-full mt-auto mb-6'>
-            <Button className='relative font-semibold bg-primary text-white w-full rounded h-[45px]'>
+            <Button onClick={() => router.push('/loading')} className='relative font-semibold bg-primary text-white w-full rounded h-[45px]'>
               Finish
               <FiChevronRight className=' text-xl absolute top-1/2 right-7 transform -translate-y-1/2' />
             </Button>
