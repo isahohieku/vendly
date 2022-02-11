@@ -1,6 +1,6 @@
 import { Api } from '@libs/api';
 import { mockUser } from '@libs/mock-data';
-import type { InfiniteQueryObserverOptions} from 'react-query';
+import type { InfiniteQueryObserverOptions } from 'react-query';
 import { useInfiniteQuery } from 'react-query';
 import type { IUserResponse } from 'src/types/users';
 

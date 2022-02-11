@@ -1,4 +1,4 @@
-import type { RefObject} from 'react';
+import type { RefObject } from 'react';
 import { useState, useEffect } from 'react';
 
 type HookReturn = [boolean, boolean, boolean, () => void, () => void, () => void, () => void];

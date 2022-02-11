@@ -17,7 +17,17 @@ interface Props {
   actionBtnClassName?: string;
 }
 
-const Modal = ({ title, isOpen, setIsOpen, children, className, withActionBtn, btnnText, onActionBtnClick, actionBtnClassName }: Props) => {
+const Modal = ({
+  title,
+  isOpen,
+  setIsOpen,
+  children,
+  className,
+  withActionBtn,
+  btnnText,
+  onActionBtnClick,
+  actionBtnClassName,
+}: Props) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
@@ -42,8 +52,10 @@ const Modal = ({ title, isOpen, setIsOpen, children, className, withActionBtn, b
             leaveTo="opacity-0 scale-95"
           >
             <div>
-              <div className={"inline-block max-w-md text-left align-middle transition-all transform"}>
-                <div className={"shadow-xl rounded-md py-3 my-8 " + (className || '')}>
+              <div
+                className={'inline-block max-w-md text-left align-middle transition-all transform'}
+              >
+                <div className={'shadow-xl rounded-md py-3 my-8 ' + (className || '')}>
                   <Dialog.Title className="flex justify-between">
                     <span>{title}</span>
                     <Button type="button" onClick={() => setIsOpen(false)}>
@@ -52,11 +64,16 @@ const Modal = ({ title, isOpen, setIsOpen, children, className, withActionBtn, b
                   </Dialog.Title>
                   {children}
                 </div>
-                {withActionBtn && <Button className={actionBtnClassName} onClick={() => onActionBtnClick && onActionBtnClick()}>{btnnText}</Button>}
-
+                {withActionBtn && (
+                  <Button
+                    className={actionBtnClassName}
+                    onClick={() => onActionBtnClick && onActionBtnClick()}
+                  >
+                    {btnnText}
+                  </Button>
+                )}
               </div>
             </div>
-
           </Transition.Child>
         </div>
       </Dialog>

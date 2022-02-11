@@ -304,7 +304,13 @@ const Loading: NextPage = () => {
           </div>
         </StepperFrame>
       </main>
-      {selectedUser && <UserCardModal isOpen={isOpenModal} setModalOpen={setIsOpenModal} user={selectedUser as IUser} />}
+      {selectedUser && (
+        <UserCardModal
+          isOpen={isOpenModal}
+          setModalOpen={setIsOpenModal}
+          user={selectedUser as IUser}
+        />
+      )}
     </Layout>
   );
 };
