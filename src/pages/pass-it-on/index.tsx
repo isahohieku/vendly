@@ -24,12 +24,14 @@ import searchData from '@assets/lotties/search-not-found.json';
 import { sleep } from '@utils/functions';
 import { useScroll } from 'src/hooks/scroll';
 import ClickOutside from '@hoc/click-outside';
+import UserCardModal from '@molecules/user-card-modal';
 
 const Loading: NextPage = () => {
   const totalPages = 2;
   const router = useRouter();
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
   const [verifyingUser, setVerifyingUser] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const { register, watch, setValue } = useForm<SearchForm>({ defaultValues: { search: '' } });
 
@@ -261,7 +263,7 @@ const Loading: NextPage = () => {
                     </Button>
                   )}
                   {selectedUser?.isVendly && (
-                    <Button className="pb-[1px]">
+                    <Button className="pb-[1px]" onClick={() => setIsOpenModal(true)}>
                       <VendlyV />
                     </Button>
                   )}
@@ -302,6 +304,7 @@ const Loading: NextPage = () => {
           </div>
         </StepperFrame>
       </main>
+      {selectedUser && <UserCardModal isOpen={isOpenModal} setModalOpen={setIsOpenModal} user={selectedUser as IUser} />}
     </Layout>
   );
 };
