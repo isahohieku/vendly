@@ -1,12 +1,6 @@
 import type { InputProps } from '@types';
 
-const Input = <T,>({
-  id,
-  name,
-  className,
-  register,
-  ...props
-}: InputProps<T>) => {
+const Input = <T,>({ id, name, className, register, ...props }: InputProps<T>) => {
   return (
     <input
       id={id}

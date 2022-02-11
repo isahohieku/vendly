@@ -1,3 +1,3 @@
 export interface SearchForm {
-    search: string;
+  search: string;
 }

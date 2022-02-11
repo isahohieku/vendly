@@ -7,11 +7,13 @@ import '@styles/globals.scss';
 const App = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = useState(() => new QueryClient());
 
-  return (<AnimateSharedLayout>
-    <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
-    </QueryClientProvider>
-  </AnimateSharedLayout>);
-}
+  return (
+    <AnimateSharedLayout>
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </AnimateSharedLayout>
+  );
+};
 
-export default App
+export default App;

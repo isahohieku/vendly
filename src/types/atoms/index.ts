@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, DetailedHTMLProps, TextareaHTMLAttributes } from 'react';
+import type { InputHTMLAttributes, DetailedHTMLProps } from 'react';
 import type { Path, UseFormRegister } from 'react-hook-form';
 import type React from 'react';
 

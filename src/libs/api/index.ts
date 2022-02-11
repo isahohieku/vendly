@@ -3,7 +3,6 @@ import _axios from 'axios';
 import { API_BASE_URL } from '@constants';
 import type { IApiErrorResponse } from './types';
 
-
 const axios = _axios.create({
   baseURL: `${API_BASE_URL}/`,
   headers: {

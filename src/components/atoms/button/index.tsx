@@ -9,12 +9,7 @@ interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, className, disabled, ...props }, ref) => {
     return (
-      <button
-        ref={ref}
-        {...props}
-        disabled={disabled}
-        className={className}
-      >
+      <button ref={ref} {...props} disabled={disabled} className={className}>
         {children}
       </button>
     );

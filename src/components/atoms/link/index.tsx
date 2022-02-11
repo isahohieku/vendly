@@ -10,12 +10,7 @@ type ActiveLinkProps = LinkProps & {
   className?: string;
 };
 
-const VLink = ({
-  children,
-  activeClassName = '',
-  className = '',
-  ...rest
-}: ActiveLinkProps) => {
+const VLink = ({ children, activeClassName = '', className = '', ...rest }: ActiveLinkProps) => {
   const { asPath } = useRouter();
   const childClassName = children.props.className ?? '';
   const newClassName = `${childClassName} ${activeClassName ?? ''}`;

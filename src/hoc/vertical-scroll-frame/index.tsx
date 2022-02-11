@@ -1,13 +1,10 @@
-
 interface Props {
-    className: string;
-    children: React.ReactNode
+  className: string;
+  children: React.ReactNode;
 }
 
-const VerticalScrollFrame = ({ className, children}: Props) => {
-    return <div className={className}>
-        {children}
-    </div>
-}
+const VerticalScrollFrame = ({ className, children }: Props) => {
+  return <div className={className}>{children}</div>;
+};
 
 export default VerticalScrollFrame;
