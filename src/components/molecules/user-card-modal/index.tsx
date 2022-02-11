@@ -66,8 +66,8 @@ const UserCardModal = ({ isOpen, setModalOpen, user }: Props) => {
               <span className="inline-block mr-2 leading-[14px]">Vendie</span>{' '}
               {Array(5)
                 .fill(1)
-                .map(() => (
-                  <FaStar className="text-[#00D0BE] mb-1" />
+                .map((_, ind) => (
+                  <FaStar key={ind} className="text-[#00D0BE] mb-1" />
                 ))}{' '}
               <FaQuestionCircle className="ml-3 mb-1 text-[#006E72]" />
             </p>

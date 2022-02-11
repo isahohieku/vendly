@@ -15,11 +15,6 @@
 
     .placeholder-search::placeholder {
         @apply font-bold;
-        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    }
-
-    .placeholder-search-focus::placeholder {
-        text-shadow: none;
     }
 }
 

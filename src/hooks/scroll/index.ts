@@ -1,65 +1,80 @@
-import type { RefObject } from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useMemo, useEffect, RefObject } from 'react';
 
-type HookReturn = [boolean, boolean, boolean, () => void, () => void, () => void, () => void];
+type HookReturn = [boolean, boolean, () => void, () => void, (e: React.UIEvent<HTMLDivElement>) => void];
 
 const useScroll = (ref: RefObject<HTMLDivElement>): HookReturn => {
-  const distance = 50;
-  const scrollSpeed = 100;
+    const distance = 50;
 
-  const [canScroll, setCanScroll] = useState<boolean>(false);
-  const [atStart, setAtStart] = useState<boolean>(true);
-  const [atEnd, setAtEnd] = useState<boolean>(false);
-  const [interval, setIntervalRef] = useState<NodeJS.Timer | null>(null);
+    const [atStart, setAtStart] = useState<boolean>(true);
+    const [atEnd, setAtEnd] = useState<boolean>(false);
+    const [scrollEvent, setScrollEvent] = useState<React.UIEvent<HTMLElement> | null>(null);
+    const [interval, setIntervalRef] = useState<NodeJS.Timer | null>(null);
 
-  useEffect(() => {
-    const { current } = ref;
-    if (!current) return;
+    useEffect(() => {
+        const { current } = ref;
 
-    // console.log('current.scrollHeight', current.scrollHeight);
+        if (!current) return;
 
-    if (current.scrollHeight <= current.clientHeight) {
-      setAtEnd(true);
-      setAtStart(true);
-      setCanScroll(false);
-    } else {
-      setCanScroll(true);
+        if (current.scrollHeight <= current.clientHeight) {
+            setAtEnd(true);
+            setAtStart(true);
+        }
+
+        if (current.scrollTop === 0) {
+            setAtStart(true);
+        } else { setAtStart(false); }
+
+        if (current.scrollTop >= current.scrollHeight - current.clientHeight - 1) {
+            setAtEnd(true);
+        } else { setAtEnd(false) }
+
+        return () => {
+            clearInterval(interval as NodeJS.Timer);
+        };
+
+    }, [ref, scrollEvent]);
+
+    // useEffect(() => {
+    //     const { current } = ref;
+
+    //     if (current) {
+    //         scroll(current.scrollHeight);
+    //     }
+    // }, [ref]);
+
+    const handleOnScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        setScrollEvent(e);
     }
 
-    return () => {
-      clearInterval(interval as NodeJS.Timer);
+    const scroll = (distance: number): void => {
+        ref.current?.scrollTo({ behavior: 'smooth', top: distance });
     };
-  }, [ref.current]);
 
-  const scroll = (distance: number): void => {
-    ref.current?.scrollTo({ behavior: 'smooth', left: distance });
-  };
+    const scrollUp = () => {
+        const _scrollUp = ref.current?.scrollTop || 0;
+        scroll(_scrollUp - distance);
+    };
 
-  const scrollUp = () => {
-    const _scrollUp = ref.current?.scrollTop || 0;
-    scroll(_scrollUp - distance);
-  };
+    const scrollDown = () => {
+        const _scrollUp = ref.current?.scrollTop || 0;
+        scroll(_scrollUp + distance);
+    };
 
-  const scrollDown = () => {
-    const _scrollUp = ref.current?.scrollTop || 0;
-    scroll(_scrollUp + distance);
-  };
+    // const up = (): void => {
+    //     const newInterval = setInterval(() => {
+    //         scrollUp();
+    //     }, scrollSpeed);
+    //     setIntervalRef(newInterval);
+    // };
 
-  const up = (): void => {
-    const newInterval = setInterval(() => {
-      scrollUp();
-    }, scrollSpeed);
-    setIntervalRef(newInterval);
-  };
+    // const down = (): void => {
+    //     const newInterval = setInterval(() => {
+    //         scrollDown();
+    //     }, scrollSpeed);
+    //     setIntervalRef(newInterval);
+    // };
 
-  const down = (): void => {
-    const newInterval = setInterval(() => {
-      scrollDown();
-    }, scrollSpeed);
-    setIntervalRef(newInterval);
-  };
-
-  return [canScroll, atStart, atEnd, scrollUp, scrollDown, up, down];
+    return [ atStart, atEnd, scrollUp, scrollDown, handleOnScroll];
 };
 
 export { useScroll };

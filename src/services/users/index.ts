@@ -7,10 +7,14 @@ import type { IUserResponse } from 'src/types/users';
 const USER_API_BASE = '';
 
 export const getFakeUsers = async ({ pageParam = 1 }) => {
+
   const res: IUserResponse = await Api.get(
     `${USER_API_BASE}?page=${pageParam}&results=10&seed=foobar`,
   );
-  res.results.push(mockUser);
+
+  if (pageParam === 1) {
+    res.results.push(mockUser);
+  }
   return res;
 };
 

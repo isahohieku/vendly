@@ -22,7 +22,7 @@ const UserSearchForm = ({ register, value, resetUser }: Prop) => {
         name="search"
         value={value}
         onKeyUp={(e) => handleKeyUp(e.key)}
-        className="appearance-none placeholder-[#00D0BE] placeholder-search focus:placeholder-search-focus focus:outline-none text-[14.8px] w-full font-bold"
+        className="appearance-none placeholder-[#00D0BE] placeholder-search focus:outline-none text-[14.8px] w-full font-bold"
       />
     </div>
   );
