@@ -12,7 +12,7 @@ import UserSearchForm from '@organisms/user-search-form';
 import FormFrame from '@hoc/form';
 import VerticalScrollFrame from '@hoc/vertical-scroll-frame';
 import React, { useEffect, useRef, useState } from 'react';
-import { FaChevronDown, FaChevronUp, FaTwitter } from 'react-icons/fa';
+import { FaTwitter } from 'react-icons/fa';
 import { useGetUsers } from '@services/users';
 import type { GetNextPageParamFunction } from 'react-query';
 import type { IUser, IUserResponse } from 'src/types/users';
@@ -25,6 +25,7 @@ import { sleep } from '@utils/functions';
 import { useScroll } from 'src/hooks/scroll';
 import ClickOutside from '@hoc/click-outside';
 import UserCardModal from '@molecules/user-card-modal';
+import Chevron from '@assets/svg/chevron';
 
 const Loading: NextPage = () => {
     const totalPages = 2;
@@ -151,7 +152,8 @@ const Loading: NextPage = () => {
                                                     disabled={atStart}
                                                     className="w-full h-[40px] flex justify-center items-center text-[#00D0BE] bg-white disabled:opacity-50"
                                                 >
-                                                    <FaChevronUp />
+                                                    {/* <FaChevronUp /> */}
+                                                    <Chevron />
                                                 </Button>
                                                 <div
                                                     className="gap-[18px] h-[calc(436px-80px)] snap-y scroll-pt-[30px] pl-[30px] overflow-y-auto scrollbar-thin scrollbar-thumb-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
@@ -203,7 +205,9 @@ const Loading: NextPage = () => {
                                                     disabled={atEnd}
                                                     className="w-full h-[40px] flex justify-center items-center text-[#00D0BE] bg-white disabled:opacity-50"
                                                 >
-                                                    <FaChevronDown />
+                                                    <div className="rotate-180">
+                                                        <Chevron />
+                                                    </div>
                                                 </Button>
                                             </div>
                                         </ClickOutside>
