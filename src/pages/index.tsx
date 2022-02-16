@@ -27,28 +27,28 @@ const Home: NextPage = () => {
             <Indicators active={1} indicators={Array(4).fill({ active: false })} />
           </div>
 
-          <div className="px-[25px] mt-8">
+          <div className="px-[24px] mt-8">
             <div className="flex justify-between items-center">
-              <h1 className="text-[22px] font-[800] leading-9">Survey</h1>
+              <h1 className="text-[22px] font-[800] leading-[37px]">Survey</h1>
 
               <VLink href="/">
-                <span className="text-sm text-[#006E72] font-[600] flex items-center">
+                <span className="text-sm text-[#006E72] font-normal flex items-center">
                   Skip <FaChevronRight />
                 </span>
               </VLink>
             </div>
           </div>
 
-          <div className="px-[25px] flex mt-[30px] text-[15.5px]">
+          <div className="pl-[10px] pr-[25px] flex mt-[30px] text-[15.5px]">
             <p className="font-[800] text-[#006E72]">13.</p>
-            <p className="font-[800] ml-2 leading-6">
+            <p className="font-[800] ml-2 leading-[25.82px]">
               Add an attachment that reflects and portrays similar features and characteristics with
               the image shown below.{' '}
             </p>
           </div>
 
           {/* Attachments */}
-          <div className="overflow-hidden mt-[50px] px-[25px]">
+          <div className="overflow-hidden mt-[50px] pl-[32px]">
             <div className="w-full no-scrollbar flex gap-[15px] snap-x scroll-pl-[25px] overflow-x-auto">
               {attachments.map((link) => (
                 <AttachmentCard image={link} key={link} cardClassName="border-2 border-[#82ECD3]" />
@@ -62,7 +62,7 @@ const Home: NextPage = () => {
               <FiPlusCircle className="text-[38px] text-[#82ECD3B2]" />
             </Button>
 
-            <p className="capitalize ml-3 text-[#82ECD3B2] font-semibold">Add attachment</p>
+            <p className="capitalize ml-3 text-[#82ECD3B2] text-[14.5px] leading-[24.16px] font-[800]">Add attachment</p>
           </div>
 
           {/* Finish Button */}

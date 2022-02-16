@@ -35,7 +35,7 @@ const Loading: NextPage = () => {
       <main className="px-5">
         <StepperFrame>
           <div className="px-[25px] mt-8">
-            <h1 className="text-[22px] font-[800] leading-9">Survey...</h1>
+            <h1 className="text-[22px] font-[800] leading-[36.65px]">Survey...</h1>
           </div>
 
           {/* Loader wrapper */}

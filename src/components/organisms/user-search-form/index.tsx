@@ -17,12 +17,12 @@ const UserSearchForm = ({ register, value, resetUser }: Prop) => {
   return (
     <div>
       <Input
-        placeholder="Search / Insert their Twitter handle"
+        placeholder="Search/ Insert their Twitter handle"
         register={register}
         name="search"
         value={value}
         onKeyUp={(e) => handleKeyUp(e.key)}
-        className="appearance-none placeholder-[#00D0BE] placeholder-search focus:outline-none text-[14.8px] w-full font-bold"
+        className="appearance-none pl-2 placeholder-[#00D0BE] placeholder-search focus:outline-none text-[14.8px] leading-[24.35px] w-full font-bold"
       />
     </div>
   );

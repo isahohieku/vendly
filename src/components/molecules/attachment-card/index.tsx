@@ -18,7 +18,7 @@ const AttachmentCard = ({ image, cardClassName }: Props) => {
       }
     >
       <Image width={124} height={130} className="" src={image} />
-      <Button className="absolute top-2 text-white right-2 opacity-50 rounded-full w-[28px] h-[28px] bg-black flex items-center justify-center text-md">
+      <Button className="absolute top-2 text-[20px] font-[900] text-white right-2 opacity-50 rounded-full w-[28px] h-[28px] bg-black flex items-center justify-center text-md">
         <FiX />
       </Button>
     </Card>

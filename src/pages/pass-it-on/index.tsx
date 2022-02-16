@@ -100,7 +100,7 @@ const Loading: NextPage = () => {
             <main className="px-5">
                 <StepperFrame>
                     <div className="px-[25px] mt-8">
-                        <h1 className="text-[22px] font-[800] leading-9">Survey Complete!</h1>
+                        <h1 className="text-[22px] font-[800] leading-[36.65px]">Survey Complete!</h1>
                     </div>
 
                     {/* Flag wrapper */}
@@ -110,13 +110,13 @@ const Loading: NextPage = () => {
                         </div>
                     </div>
 
-                    <h3 className="text-[17.5px] mt-8 font-[800] leading-9 text-center">Pass it on?</h3>
-                    <p className="text-center text-sm max-w-[260px] text-[#006E72] mx-auto font-normal">
+                    <h3 className="text-[17.5px] mt-8 font-[800] text-[#003333] leading-9 text-center">Pass it on?</h3>
+                    <p className="text-center text-sm max-w-[260px] text-[#006E72] leading-[22.46px] mx-auto font-normal">
                         Nominate someone else to take this incentivized survey.
                     </p>
 
                     {/* Search Input */}
-                    <div className="relative px-[25px] mt-9">
+                    <div className="relative w-[274px] mx-auto mt-9">
                         <div
                             className={
                                 'absolute -left-2 bottom-9 ' + (showSearchResult ? 'opacity-100' : 'opacity-0')
@@ -192,7 +192,7 @@ const Loading: NextPage = () => {
                                                                 />
                                                             ))}
                                                 </div>
-                                                {(isLoading || isFetching) && (<div className="flex justify-center py-3">
+                                                {(isLoading || isFetching) && (users?.pages?.length as number < 1) && (<div className="flex justify-center py-3">
                                                     <Lottie options={loadingOptions} width={22} height={22} />
                                                 </div>)}
 
@@ -209,7 +209,7 @@ const Loading: NextPage = () => {
                                 )}
 
                             {/* Loading */}
-                            {(isLoading || isFetching) && (users?.pages?.length as number < 1) && (
+                            {(isLoading || isFetching) && !(users?.pages.map(page => page.results).flat()?.length as number < 1) && (
                                 <div className="h-[441px] w-[268px] rounded-[8px] flex flex-col justify-center items-center bg-[#E0FAF8] border-[0.8px] border-[#82ECD3]">
                                     <div className="w-[200px] h-[210px] bg-white flex justify-center items-center">
                                         <Lottie options={loadingOptions} width={180} height={180} />
@@ -280,7 +280,7 @@ const Loading: NextPage = () => {
                     </div>
 
                     {/* Continue Button */}
-                    <div className="px-[25px] w-full mt-auto mb-6">
+                    <div className="px-[18px] w-full mt-auto mb-6">
                         <Button
                             onClick={() => {
                                 if (!selectedUser) return;

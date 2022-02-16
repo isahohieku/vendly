@@ -15,7 +15,7 @@ const Loading: NextPage = () => {
       <main className="px-5">
         <StepperFrame>
           <div className="px-[25px] mt-8">
-            <h1 className="text-[22px] font-[800] leading-9">Survey Complete!</h1>
+            <h1 className="text-[22px] font-[800] leading-[36.65px]">Survey Complete!</h1>
           </div>
 
           {/* Flag wrapper */}
@@ -25,7 +25,7 @@ const Loading: NextPage = () => {
             </div>
           </div>
 
-          <h3 className="text-[17.5px] mt-24 font-[800] leading-9 text-center">
+          <h3 className="text-[17.5px] mt-[108px] font-[800] leading-[29.16px] text-center text-[#003333]">
             Thanks for your time!
           </h3>
 
@@ -33,7 +33,7 @@ const Loading: NextPage = () => {
           <div className="px-[25px] w-full mt-auto mb-6">
             <Button
               onClick={() => router.push('/pass-it-on')}
-              className="relative font-semibold bg-primary text-white w-full rounded h-[45px]"
+              className="relative font-semibold bg-[#006E72] text-white w-full rounded h-[45px]"
             >
               Continue
               <FiChevronRight className=" text-xl absolute top-1/2 right-7 transform -translate-y-1/2" />
