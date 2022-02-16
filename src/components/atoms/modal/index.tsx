@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Button from '@atoms/button';
 import { MdClose } from 'react-icons/md';
+import { FiChevronRight } from 'react-icons/fi';
 
 interface Props {
   title: string;
@@ -55,10 +56,10 @@ const Modal = ({
               <div
                 className={'inline-block max-w-md text-left align-middle transition-all transform'}
               >
-                <div className={'shadow-xl rounded-md py-3 my-8 ' + (className || '')}>
+                <div className={'shadow-xl rounded-md py-3 mb-8 ' + (className || '')}>
                   <Dialog.Title className="flex justify-between">
                     <span>{title}</span>
-                    <Button type="button" onClick={() => setIsOpen(false)}>
+                    <Button type="button" className='text-2xl text-[#007575]' onClick={() => setIsOpen(false)}>
                       <MdClose />
                     </Button>
                   </Dialog.Title>
@@ -69,7 +70,8 @@ const Modal = ({
                     className={actionBtnClassName}
                     onClick={() => onActionBtnClick && onActionBtnClick()}
                   >
-                    {btnnText}
+                    {btnnText} 
+                    <FiChevronRight className=" text-xl absolute top-1/2 right-7 transform -translate-y-1/2" />
                   </Button>
                 )}
               </div>

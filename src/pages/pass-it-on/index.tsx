@@ -4,7 +4,7 @@ import StepperFrame from '@hoc/stepper-frame';
 import VLink from '@atoms/link';
 import Button from '@atoms/button';
 import { useRouter } from 'next/router';
-import { FiChevronRight } from 'react-icons/fi';
+import { FiArrowLeft, FiChevronRight } from 'react-icons/fi';
 import { Flag, VendlyV } from '@assets/svg';
 import { useForm } from 'react-hook-form';
 import type { SearchForm } from 'src/types/forms';
@@ -34,8 +34,9 @@ const Loading: NextPage = () => {
     const [verifyingUser, setVerifyingUser] = useState<boolean>(false);
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+    const [touchedField, setTouchedField] = useState<boolean>(false);
 
-    const { register, watch, setValue } = useForm<SearchForm>({ defaultValues: { search: '' } });
+    const { register, watch, setValue, reset } = useForm<SearchForm>({ defaultValues: { search: '' } });
 
     const scrollWrapper = useRef<HTMLDivElement>(null);
 
@@ -69,6 +70,7 @@ const Loading: NextPage = () => {
             setShowSearchResult(true);
             refetch();
         }
+        setTouchedField(true);
     }, [search]);
 
     useEffect(() => {
@@ -303,12 +305,16 @@ const Loading: NextPage = () => {
                     </div>
 
                     {/* Read Instruction */}
-                    <div className="flex justify-center font-normal items-center text-xs mb-5 text-[#006E72]">
+                    {!touchedField ? <div className="flex justify-center font-normal items-center text-xs mb-5 text-[#006E72]">
                         Read
                         <VLink href="/" className="ml-1">
                             <span className="text-sm text-[#17E7B3] flex items-center">Instructions</span>
                         </VLink>
-                    </div>
+                    </div> : <div className="mb-5 text-[#006E72] flex justify-center">
+                        <Button onClick={() => { reset(); setTouchedField(false); }} className="flex justify-center font-semibold items-center text-xs leading-[19.57px]">
+                            <FiArrowLeft className='mr-[2px] text-lg' /> Go back
+                        </Button>
+                    </div>}
                 </StepperFrame>
             </main>
             {selectedUser && (
