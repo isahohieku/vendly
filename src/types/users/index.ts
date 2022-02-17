@@ -2,6 +2,7 @@ import type { IApiResponse } from '@libs/api/types';
 
 export interface IUser {
   username: string;
+  gender: string;
   name: {
     first: string;
     last: string;

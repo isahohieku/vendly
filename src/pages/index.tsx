@@ -57,7 +57,7 @@ const Home: NextPage = () => {
           </div>
 
           {/* Attachment Button */}
-          <div className="flex items-center mt-[24px] px-[25px]">
+          <div className="flex items-center mt-[24px] px-[32px]">
             <Button>
               <FiPlusCircle className="text-[38px] text-[#82ECD3B2]" />
             </Button>

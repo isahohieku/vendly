@@ -21,7 +21,7 @@ import Lottie from 'react-lottie';
 import UserCard from '@molecules/user-card';
 import loadingData from '@assets/lotties/loading-fill.json';
 import searchData from '@assets/lotties/search-not-found.json';
-import { sleep } from '@utils/functions';
+import { filterUsers, sleep } from '@utils/functions';
 import { useScroll } from 'src/hooks/scroll';
 import ClickOutside from '@hoc/click-outside';
 import UserCardModal from '@molecules/user-card-modal';
@@ -71,7 +71,10 @@ const Loading: NextPage = () => {
             setShowSearchResult(true);
             refetch();
         }
-        setTouchedField(true);
+
+        if (search) {
+            setTouchedField(true);
+        }
     }, [search]);
 
     useEffect(() => {
@@ -126,23 +129,9 @@ const Loading: NextPage = () => {
                             }
                         >
                             {/* Search Result */}
-                            {users?.pages.length &&
+                            {users?.pages.length && users?.pages.map(({ results }) => filterUsers(results, search)).flat().length > 0 &&
                                 users?.pages
-                                    .map(({ results }) =>
-                                        results.filter(
-                                            (user) =>
-                                                user?.name?.first.toLowerCase().includes(search.toLowerCase()) ||
-                                                user?.name?.last.toLowerCase().includes(search.toLowerCase()) ||
-                                                user?.username?.toLowerCase().includes(search.toLowerCase()) ||
-                                                user?.username?.toLowerCase().includes(search.substring(1).toLowerCase()) ||
-                                                user?.name.last
-                                                    ?.toLowerCase()
-                                                    .includes(search.substring(1).toLowerCase()) ||
-                                                `${user?.name?.first} ${user?.name?.last}`
-                                                    .toLowerCase()
-                                                    .includes(search.toLowerCase()),
-                                        ),
-                                    )
+                                    .map(({ results }) => results)
                                     .flat().length > 0 && (
                                     <VerticalScrollFrame className="rounded-[8px] border border-[#82ECD3] bg-white overflow-hidden h-[438px] w-[286px]">
                                         <ClickOutside onClickOutside={() => setShowSearchResult(false)}>
@@ -152,11 +141,10 @@ const Loading: NextPage = () => {
                                                     disabled={atStart}
                                                     className="w-full h-[40px] flex justify-center items-center text-[#00D0BE] bg-white disabled:opacity-50"
                                                 >
-                                                    {/* <FaChevronUp /> */}
                                                     <Chevron />
                                                 </Button>
                                                 <div
-                                                    className="gap-[18px] h-[calc(436px-80px)] snap-y scroll-pt-[30px] pl-[30px] overflow-y-auto scrollbar-thin scrollbar-thumb-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
+                                                    className="gap-[18px] h-[calc(436px-80px)] snap-y scroll-pt-[30px] pl-[30px] overflow-y-auto scrollbar-thin scrollbar-thumb-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full scroll-results"
                                                     onScroll={onScroll}
                                                     ref={scrollWrapper}
 
@@ -215,7 +203,7 @@ const Loading: NextPage = () => {
                                 )}
 
                             {/* Loading */}
-                            {(isLoading || isFetching) && !(users?.pages.map(page => page.results).flat()?.length as number < 1) && (
+                            {(isLoading || isFetching) && !(users?.pages.map(page => page.results).flat()?.length) && (
                                 <div className="h-[441px] w-[268px] rounded-[8px] flex flex-col justify-center items-center bg-[#E0FAF8] border-[0.8px] border-[#82ECD3]">
                                     <div className="w-[200px] h-[210px] bg-white flex justify-center items-center">
                                         <Lottie options={loadingOptions} width={180} height={180} />

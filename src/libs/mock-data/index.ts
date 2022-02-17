@@ -1,11 +1,15 @@
 import type { IUser } from 'src/types/users';
 
+export const femaleNames: string[] = ['Chiamaka', 'Chinelo', 'Chinaka', 'Chikezie', 'Chinecherem', 'Chideah', 'Chidy', 'Chinwe'];
+export const maleNames: string[] = ['Chizoba', 'Chisom', 'Chinonso', 'Chikwendu', 'Chimbuchim', 'Chiedozie', 'Chijioke', 'Chikere'];
+
 export const mockUser: IUser = {
   name: {
     first: 'Chinonyem',
     last: 'Obaji',
     title: 'Mrs',
   },
+  gender: 'female',
   username: 'theChiboo',
   email: 'theChiboo@email.com',
   picture: {
