@@ -32,10 +32,11 @@ const Loading: NextPage = () => {
     const router = useRouter();
 
     const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
-    const [verifyingUser, setVerifyingUser] = useState<boolean>(false);
+    const [completingPassingToUser, setCompletingPassingToUser] = useState<boolean>(false);
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
     const [touchedField, setTouchedField] = useState<boolean>(false);
+    const [verifyingSelected, setVerifyingSelected] = useState<boolean>(false);
 
     const { register, watch, setValue, reset } = useForm<SearchForm>({ defaultValues: { search: '' } });
 
@@ -56,12 +57,14 @@ const Loading: NextPage = () => {
         hasNextPage,
         fetchNextPage,
     } = useGetUsers({
-        enabled: false,
+        queryKey: ['users', search],
+        enabled: true,
+        staleTime: 10 * 60 * 1000,
         getNextPageParam,
     });
 
     const completeSurvey = async () => {
-        setVerifyingUser(true);
+        setCompletingPassingToUser(true);
         await sleep(4);
         router.push('/validate-user');
     };
@@ -82,6 +85,12 @@ const Loading: NextPage = () => {
             fetchNextPage().then(() => scrollDown())
         }
     }, [atEnd]);
+
+    const verifySelectedUser = async () => {
+        setVerifyingSelected(true);
+        await sleep(3);
+        setVerifyingSelected(false);
+    }
 
     const loadingOptions: Options = {
         loop: true,
@@ -141,7 +150,7 @@ const Loading: NextPage = () => {
                                                     disabled={atStart}
                                                     className="w-full h-[40px] flex justify-center items-center text-[#00D0BE] bg-white disabled:opacity-50"
                                                 >
-                                                    <Chevron />
+                                                    {!(isLoading || isFetching) ? <Chevron /> : <Lottie options={loadingOptions} width={30} height={30} />}
                                                 </Button>
                                                 <div
                                                     className="gap-[18px] h-[calc(436px-80px)] snap-y scroll-pt-[30px] pl-[30px] overflow-y-auto scrollbar-thin scrollbar-thumb-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full scroll-results"
@@ -174,6 +183,7 @@ const Loading: NextPage = () => {
                                                                     user={user}
                                                                     selectedUser={(selected) => {
                                                                         setSelectedUser(selected);
+                                                                        verifySelectedUser();
                                                                         setValue(
                                                                             'search',
                                                                             `@${selected?.username || selected?.name?.last.toLowerCase()
@@ -184,18 +194,15 @@ const Loading: NextPage = () => {
                                                                 />
                                                             ))}
                                                 </div>
-                                                {(isLoading || isFetching) && (users?.pages?.length as number < 1) && (<div className="flex justify-center py-3">
-                                                    <Lottie options={loadingOptions} width={22} height={22} />
-                                                </div>)}
 
                                                 <Button
                                                     onClick={() => scrollDown()}
                                                     disabled={atEnd}
                                                     className="w-full h-[40px] flex justify-center items-center text-[#00D0BE] bg-white disabled:opacity-50"
                                                 >
-                                                    <div className="rotate-180">
+                                                   {!(isLoading || isFetching) ? <div className="rotate-180">
                                                         <Chevron />
-                                                    </div>
+                                                    </div>: <span className='text-[7px] text-black font-normal'>Fetching Search Results...</span>}
                                                 </Button>
                                             </div>
                                         </ClickOutside>
@@ -253,10 +260,10 @@ const Loading: NextPage = () => {
                             </FormFrame>
 
                             {/* <p className='text-[#C6F6F4] font-[900] text-lg'>OK</p> */}
-                            {(isLoading || isFetching) && (
+                            {selectedUser && verifyingSelected && (
                                 <Lottie options={loadingOptions} width={22} height={22} />
                             )}
-                            {!showSearchResult && (
+                            {!showSearchResult && !verifyingSelected && (
                                 <>
                                     {selectedUser && (
                                         <Button className="mr-2">
@@ -282,12 +289,12 @@ const Loading: NextPage = () => {
                             }}
                             className={
                                 'relative font-semibold bg-[#C6F6F2] text-[#00D0BE] w-full rounded h-[45px] border-[1px] border-[#82ECD3] ' +
-                                (selectedUser ? 'bg-[#006E72] text-[#FFFFFF] border-0' : '')
+                                ((selectedUser && !verifyingSelected) ? 'bg-[#006E72] text-[#FFFFFF] border-0' : '') + (touchedField ? ' text-[#FFFFFF]' : '')
                             }
                         >
-                            {!verifyingUser ? (
+                            {!completingPassingToUser ? (
                                 <>
-                                    {selectedUser ? 'Continue' : 'Skip'}
+                                    {selectedUser && !verifyingSelected ? 'Continue' : 'Skip'}
                                     <FiChevronRight className=" text-xl absolute top-1/2 right-7 transform -translate-y-1/2" />
                                 </>
                             ) : (

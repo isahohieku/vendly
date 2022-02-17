@@ -1,14 +1,18 @@
 import { Api } from '@libs/api';
 import { femaleNames, maleNames, mockUser } from '@libs/mock-data';
-import type { InfiniteQueryObserverOptions } from 'react-query';
+import type { InfiniteQueryObserverOptions, QueryFunctionContext } from 'react-query';
 import { useInfiniteQuery } from 'react-query';
 import { random, sleep } from '@utils/functions';
 import type { IUserResponse, IUser } from '@types';
 
 const USER_API_BASE = '';
 
-export const getFakeUsers = async ({ pageParam = 1 }) => {
+export const getFakeUsers = async ({ pageParam = 1, queryKey }: QueryFunctionContext) => {
+  const search = queryKey[0]
+  if (!search) return { results: [], info: { seed: '', results: 0, page: 0, version: 'v1' }} as IUserResponse;
+
   await sleep(2);
+
   const res: IUserResponse = await Api.get(
     `${USER_API_BASE}?page=${pageParam}&results=10&seed=foobar`,
   );
