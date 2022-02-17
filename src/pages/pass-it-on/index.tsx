@@ -72,7 +72,6 @@ const Loading: NextPage = () => {
         setCompletingPassingToUser(false);
         setCompletedPassingToUser(true)
         await sleep(3);
-        setCompletedPassingToUser(false)
         router.push('/validate-user');
     };
 
