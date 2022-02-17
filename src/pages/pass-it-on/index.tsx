@@ -20,6 +20,7 @@ import type { Options } from 'react-lottie';
 import Lottie from 'react-lottie';
 import UserCard from '@molecules/user-card';
 import loadingData from '@assets/lotties/loading-fill.json';
+import loadingCompletedData from '@assets/lotties/loading-complete.json';
 import searchData from '@assets/lotties/search-not-found.json';
 import { filterUsers, sleep } from '@utils/functions';
 import { useScroll } from 'src/hooks/scroll';
@@ -33,10 +34,12 @@ const Loading: NextPage = () => {
 
     const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
     const [completingPassingToUser, setCompletingPassingToUser] = useState<boolean>(false);
+    const [completedPassingToUser, setCompletedPassingToUser] = useState<boolean>(false);
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
     const [touchedField, setTouchedField] = useState<boolean>(false);
     const [verifyingSelected, setVerifyingSelected] = useState<boolean>(false);
+    const [verifyingSelectedComplete, setVerifyingSelectedComplete] = useState<boolean>(false);
 
     const { register, watch, setValue, reset } = useForm<SearchForm>({ defaultValues: { search: '' } });
 
@@ -66,6 +69,10 @@ const Loading: NextPage = () => {
     const completeSurvey = async () => {
         setCompletingPassingToUser(true);
         await sleep(4);
+        setCompletingPassingToUser(false);
+        setCompletedPassingToUser(true)
+        await sleep(3);
+        setCompletedPassingToUser(false)
         router.push('/validate-user');
     };
 
@@ -90,12 +97,24 @@ const Loading: NextPage = () => {
         setVerifyingSelected(true);
         await sleep(3);
         setVerifyingSelected(false);
+        setVerifyingSelectedComplete(true);
+        await sleep(3);
+        setVerifyingSelectedComplete(false)
     }
 
     const loadingOptions: Options = {
         loop: true,
         autoplay: true,
         animationData: loadingData,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice',
+        },
+    };
+
+    const loadingCompletedOptions: Options = {
+        loop: 1,
+        autoplay: true,
+        animationData: loadingCompletedData,
         rendererSettings: {
             preserveAspectRatio: 'xMidYMid slice',
         },
@@ -200,9 +219,9 @@ const Loading: NextPage = () => {
                                                     disabled={atEnd}
                                                     className="w-full h-[40px] flex justify-center items-center text-[#00D0BE] bg-white disabled:opacity-50"
                                                 >
-                                                   {!(isLoading || isFetching) ? <div className="rotate-180">
+                                                    {!(isLoading || isFetching) ? <div className="rotate-180">
                                                         <Chevron />
-                                                    </div>: <span className='text-[7px] text-black font-normal'>Fetching Search Results...</span>}
+                                                    </div> : <span className='text-[7px] text-black font-normal'>Fetching Search Results...</span>}
                                                 </Button>
                                             </div>
                                         </ClickOutside>
@@ -263,7 +282,10 @@ const Loading: NextPage = () => {
                             {selectedUser && verifyingSelected && (
                                 <Lottie options={loadingOptions} width={22} height={22} />
                             )}
-                            {!showSearchResult && !verifyingSelected && (
+                            {selectedUser && verifyingSelectedComplete && (
+                                <Lottie options={loadingCompletedOptions} width={22} height={22} />
+                            )}
+                            {!showSearchResult && !verifyingSelected && !verifyingSelectedComplete && (
                                 <>
                                     {selectedUser && (
                                         <Button className="mr-2">
@@ -281,7 +303,7 @@ const Loading: NextPage = () => {
                     </div>
 
                     {/* Continue Button */}
-                    <div className="px-[18px] w-full mt-auto mb-6">
+                    <div className="px-[18px] w-full mt-auto mb-6 h-[45px]">
                         <Button
                             onClick={() => {
                                 if (!selectedUser) return;
@@ -289,16 +311,18 @@ const Loading: NextPage = () => {
                             }}
                             className={
                                 'relative font-semibold bg-[#C6F6F2] text-[#00D0BE] w-full rounded h-[45px] border-[1px] border-[#82ECD3] ' +
-                                ((selectedUser && !verifyingSelected) ? 'bg-[#006E72] text-[#FFFFFF] border-0' : '') + (touchedField ? ' text-[#FFFFFF]' : '')
+                                ((selectedUser && !verifyingSelected && !verifyingSelectedComplete) ? 'bg-[#006E72] text-[#FFFFFF] border-0' : '') + (touchedField ? ' text-[#FFFFFF]' : '')
                             }
                         >
-                            {!completingPassingToUser ? (
+                            {!completingPassingToUser && !completedPassingToUser ? (
                                 <>
-                                    {selectedUser && !verifyingSelected ? 'Continue' : 'Skip'}
+                                    {selectedUser && !verifyingSelected && !verifyingSelectedComplete ? 'Continue' : 'Skip'}
                                     <FiChevronRight className=" text-xl absolute top-1/2 right-7 transform -translate-y-1/2" />
                                 </>
-                            ) : (
-                                <Lottie options={loadingOptions} width={40} height={40} />
+                            ) : (<>
+                                {completingPassingToUser && <Lottie options={loadingOptions} width={40} height={40} />}
+                                {completedPassingToUser && <Lottie options={loadingCompletedOptions} width={40} height={40} />}
+                            </>
                             )}
                         </Button>
                     </div>
